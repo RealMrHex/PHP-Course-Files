@@ -1,0 +1,18 @@
+<?php
+$title = 'Contact';
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <?php
+        include './components/head.php';
+    ?>
+</head>
+<body>
+    <?php
+        include './components/header.php';
+    ?>
+    <h1><?= $title ?></h1>
+</body>
+</html>

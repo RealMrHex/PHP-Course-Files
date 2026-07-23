@@ -1,0 +1,19 @@
+body {
+    background-color: #151515;
+    color: #ededed;
+}
+
+a {
+    color: #e7e7e7;
+    transition: all 0.3 ease;
+}
+
+a:hover {
+    color: #ff7b7b;
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.active {
+    color: #ff6060;
+}
