@@ -25,32 +25,11 @@
     </script>
   </head>
   <body>
-    <div class="toolbar" aria-label="Toolbar">
-      <a class="chip-btn" href="./index.html" title="CV / Resume">
-        <span class="lang-fa">رزومه</span>
-        <span class="lang-en">Resume</span>
-      </a>
-      <button type="button" id="lang-btn" class="chip-btn lang-chip" aria-label="Language" title="Language">
-        <span class="lang-fa">English</span>
-        <span class="lang-en">فارسی</span>
-      </button>
-      <button type="button" id="theme-btn" class="icon-btn" aria-pressed="false" aria-label="Theme" title="Theme">
-        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
-          <circle cx="12" cy="12" r="4"/>
-          <path stroke-linecap="round" d="M12 3v2M12 19v2M3 12h2M19 12h2M5.6 5.6l1.4 1.4M17 17l1.4 1.4M5.6 18.4 7 17M17 7l1.4-1.4"/>
-        </svg>
-        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
-        </svg>
-      </button>
-      <button type="button" id="print-btn" class="icon-btn" aria-label="Print" title="Print / PDF">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
-          <path stroke-linejoin="round" d="M7 8V4h10v4"/>
-          <path stroke-linejoin="round" d="M7 16H5a2 2 0 0 1-2-2v-4a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v4a2 2 0 0 1-2 2h-2"/>
-          <rect x="7" y="14" width="10" height="6" rx="1"/>
-        </svg>
-      </button>
-    </div>
+    
+    <?php
+      include_once '../components/toolbar.php';
+      include_once '../data/coverletter.php';
+    ?>
 
     <div class="sheet letter-sheet">
       <header class="letter-top">
@@ -60,28 +39,30 @@
             <span class="lang-en">Cover Letter</span>
           </p>
           <h1 class="name">
-            <span class="lang-fa">آرمین هوشمند</span>
-            <span class="lang-en">Armin Houshmand</span>
+            <span class="lang-fa"><?= $data['header']['fullname']['fa'] ?></span>
+            <span class="lang-en"><?= $data['header']['fullname']['en'] ?></span>
           </h1>
           <p class="role">
-            <span class="lang-fa">توسعه‌دهنده Backend</span>
-            <span class="lang-en">Backend Developer</span>
+            <span class="lang-fa"><?= $data['header']['role']['fa'] ?></span>
+            <span class="lang-en"><?= $data['header']['role']['en'] ?></span>
           </p>
           <p class="stack ltr" dir="ltr">PHP · Laravel</p>
         </div>
         <ul class="letter-contact">
           <li>
-            <a class="ltr" href="tel:+989121234567" dir="ltr">0912 123 4567</a>
+            <a class="ltr" href="tel:<?= $data['header']['mobile']['link'] ?>" dir="ltr">
+              <?= $data['header']['mobile']['visual'] ?>
+            </a>
           </li>
           <li>
-            <a class="ltr" href="mailto:armin.houshmand@email.com" dir="ltr">armin.houshmand@email.com</a>
+            </li>
+            <a class="ltr" href="mailto:<?= $data['header']['email'] ?>" dir="ltr"><?= $data['header']['email'] ?></a>
+          <li>
+            <span class="lang-fa"><?= $data['header']['location']['fa'] ?></span>
+            <span class="lang-en"><?= $data['header']['location']['en'] ?></span>
           </li>
           <li>
-            <span class="lang-fa">تهران، ایران</span>
-            <span class="lang-en">Tehran, Iran</span>
-          </li>
-          <li>
-            <a class="ltr" href="https://github.com/armin" target="_blank" rel="noopener noreferrer" dir="ltr">github.com/armin</a>
+            <a class="ltr" href="https://github.com/<?= $data['header']['github'] ?>" target="_blank" rel="noopener noreferrer" dir="ltr">github.com/<?= $data['header']['github'] ?></a>
           </li>
         </ul>
       </header>
@@ -89,8 +70,8 @@
       <div class="letter-content">
         <div class="letter-meta">
           <p class="letter-date">
-            <span class="lang-fa">۹ مرداد ۱۴۰۵</span>
-            <span class="lang-en">August 9, 2026</span>
+            <span class="lang-fa"><?= $data['content']['date']['fa'] ?></span>
+            <span class="lang-en"><?= $data['content']['date']['en'] ?></span>
           </p>
 
           <div class="letter-to">
@@ -99,16 +80,16 @@
               <span class="lang-en">To</span>
             </p>
             <p>
-              <span class="lang-fa">مدیر منابع انسانی محترم</span>
-              <span class="lang-en">Hiring Manager</span>
+              <span class="lang-fa"><?= $data['content']['receiver']['fa'] ?></span>
+              <span class="lang-en"><?= $data['content']['receiver']['en'] ?></span>
             </p>
             <p>
-              <span class="lang-fa">نام شرکت</span>
-              <span class="lang-en">Company Name</span>
+              <span class="lang-fa"><?= $data['content']['company']['fa'] ?></span>
+              <span class="lang-en"><?= $data['content']['company']['en'] ?></span>
             </p>
             <p>
-              <span class="lang-fa">تهران، ایران</span>
-              <span class="lang-en">Tehran, Iran</span>
+              <span class="lang-fa"><?= $data['content']['location']['fa'] ?></span>
+              <span class="lang-en"><?= $data['content']['location']['en'] ?></span>
             </p>
           </div>
 
@@ -117,8 +98,8 @@
               <span class="lang-fa">موضوع</span>
               <span class="lang-en">Subject</span>
             </span>
-            <span class="lang-fa">درخواست همکاری به‌عنوان توسعه‌دهنده Backend (PHP / Laravel)</span>
-            <span class="lang-en">Application for Backend Developer (PHP / Laravel)</span>
+              <span class="lang-fa"><?= $data['content']['title']['fa'] ?></span>
+              <span class="lang-en"><?= $data['content']['title']['en'] ?></span>
           </p>
         </div>
 
@@ -165,8 +146,8 @@
             <span class="lang-en">Best regards,</span>
           </p>
           <p class="letter-sign">
-            <span class="lang-fa">آرمین هوشمند</span>
-            <span class="lang-en">Armin Houshmand</span>
+              <span class="lang-fa"><?= $data['header']['fullname']['fa'] ?></span>
+              <span class="lang-en"><?= $data['header']['fullname']['en'] ?></span>
           </p>
         </footer>
       </div>
