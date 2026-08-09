@@ -27,6 +27,7 @@
   <body>
     
     <?php
+      $data = [];
       include_once '../components/toolbar.php';
       include_once '../data/coverletter.php';
     ?>
@@ -46,7 +47,19 @@
             <span class="lang-fa"><?= $data['header']['role']['fa'] ?></span>
             <span class="lang-en"><?= $data['header']['role']['en'] ?></span>
           </p>
-          <p class="stack ltr" dir="ltr">PHP · Laravel</p>
+          <p class="stack ltr" dir="ltr">
+            <?php 
+            for($i = 0; $i < count($data['header']['skills']); $i++)
+            {
+              echo $data['header']['skills'][$i];
+              
+              if($i != count($data['header']['skills']) - 1)
+              {
+                echo '・';
+              }
+            }
+            ?>
+          </p>
         </div>
         <ul class="letter-contact">
           <li>
@@ -108,36 +121,15 @@
             <span class="lang-fa">با سلام و احترام،</span>
             <span class="lang-en">Dear Hiring Manager,</span>
           </p>
-          <p>
-            <span class="lang-fa">
-              با توجه به فرصت شغلی توسعه‌دهنده Backend در مجموعه شما، مایل‌ام آمادگی خود را برای همکاری اعلام کنم.
-              بیش از ۶ سال تجربه در توسعه سامانه‌های تحت وب و API با PHP و Laravel دارم و روی ساخت سرویس‌های پایدار، قابل نگهداری و هم‌راستا با نیاز محصول تمرکز می‌کنم.
-            </span>
-            <span class="lang-en">
-              I am writing to apply for the Backend Developer role at your company.
-              With 6+ years of experience building web systems and APIs in PHP and Laravel, I focus on reliable, maintainable services that support real product needs.
-            </span>
-          </p>
-          <p>
-            <span class="lang-fa">
-              در نقش فعلی‌ام، طراحی API، بهینه‌سازی پایگاه‌داده و پیاده‌سازی پردازش‌های ناهم‌زمان با Redis را بر عهده داشته‌ام
-              و با بهبود عملکرد سرویس‌های پرمصرف، زمان پاسخ را حدود ۴۰٪ کاهش داده‌ام. همچنین تجربه کار نزدیک با تیم‌های محصول و فرانت‌اند برای تحویل شفاف و پایدار را دارم.
-            </span>
-            <span class="lang-en">
-              In my current role, I have owned API design, database optimization, and asynchronous processing with Redis,
-              including reducing response time on high-traffic services by about 40%. I also work closely with product and frontend teams to deliver clear, dependable outcomes.
-            </span>
-          </p>
-          <p>
-            <span class="lang-fa">
-              خوشحال می‌شوم در صورت نیاز، جزئیات بیشتری از پروژه‌ها و نمونه‌کارها را ارائه دهم.
-              از وقت شما سپاسگزارم و مشتاق گفت‌وگوی بیشتر هستم.
-            </span>
-            <span class="lang-en">
-              I would be glad to share more details about my projects and work samples if helpful.
-              Thank you for your time — I look forward to the possibility of speaking further.
-            </span>
-          </p>
+          <?php
+            foreach($data['content']['text'] as $text)
+            {
+              echo '<p>';
+              echo "<span class=\"lang-fa\">{$text['fa']}</span>";
+              echo "<span class=\"lang-en\">{$text['en']}</span>";
+              echo '</p>';
+            }
+          ?>
         </div>
 
         <footer class="letter-close">

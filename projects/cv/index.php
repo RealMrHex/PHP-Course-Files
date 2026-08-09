@@ -27,7 +27,11 @@
     </script>
   </head>
   <body>
-    <?php include_once './components/toolbar.php'; ?>
+    <?php
+      $data = [];
+      include_once './components/toolbar.php';
+      include_once './data/cv.php';
+    ?>
     <div class="sheet">
       <aside class="rail" aria-label="Sidebar">
         <header class="rail-brand">
@@ -39,14 +43,26 @@
             </span>
           </p>
           <h1 class="name">
-            <span class="lang-fa">آرمین هوشمند</span>
-            <span class="lang-en">Armin Houshmand</span>
+            <span class="lang-fa"><?= $data['personal_info']['fullname']['fa'] ?></span>
+            <span class="lang-en"><?= $data['personal_info']['fullname']['en'] ?></span>
           </h1>
           <p class="role">
-            <span class="lang-fa">توسعه‌دهنده Backend</span>
-            <span class="lang-en">Backend Developer</span>
+            <span class="lang-fa"><?= $data['personal_info']['role']['fa'] ?></span>
+            <span class="lang-en"><?= $data['personal_info']['role']['en'] ?></span>
           </p>
-          <p class="stack ltr" dir="ltr">PHP · Laravel</p>
+          <p class="stack ltr" dir="ltr">
+            <?php 
+              for($i = 0; $i < count($data['personal_info']['skills']); $i++)
+              {
+                echo $data['personal_info']['skills'][$i];
+                
+                if($i != count($data['personal_info']['skills']) - 1)
+                {
+                  echo '・';
+                }
+              }
+            ?>
+          </p>
         </header>
 
         <section class="rail-block">
@@ -61,7 +77,7 @@
                   <path d="M6.5 3.5h3l1.5 4-2 1.5a12 12 0 0 0 6 6l1.5-2 4 1.5v3a2 2 0 0 1-2 2A15.5 15.5 0 0 1 4.5 5.5a2 2 0 0 1 2-2z" stroke-linejoin="round" stroke-linecap="round"/>
                 </svg>
               </span>
-              <a class="ltr" href="tel:+989121234567" dir="ltr">0912 123 4567</a>
+              <a class="ltr" href="tel:<?= $data['personal_info']['contacts']['mobile']['link'] ?>" dir="ltr"><?= $data['personal_info']['contacts']['mobile']['visual'] ?></a>
             </li>
             <li>
               <span class="icon" aria-hidden="true">
@@ -70,7 +86,7 @@
                   <path d="m4.5 7 7.5 6 7.5-6" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
               </span>
-              <a class="ltr" href="mailto:armin.houshmand@email.com" dir="ltr">armin.houshmand@email.com</a>
+              <a class="ltr" href="mailto:<?= $data['personal_info']['contacts']['email'] ?>" dir="ltr"><?= $data['personal_info']['contacts']['email'] ?></a>
             </li>
             <li>
               <span class="icon" aria-hidden="true">
@@ -80,8 +96,8 @@
                 </svg>
               </span>
               <span>
-                <span class="lang-fa">تهران، ایران</span>
-                <span class="lang-en">Tehran, Iran</span>
+            <span class="lang-fa"><?= $data['personal_info']['contacts']['location']['fa'] ?></span>
+            <span class="lang-en"><?= $data['personal_info']['contacts']['location']['en'] ?></span>
               </span>
             </li>
             <li>
@@ -90,15 +106,7 @@
                   <path d="M12 2.2C6.5 2.2 2 6.7 2 12.3c0 4.5 2.9 8.3 6.9 9.6.5.1.7-.2.7-.5v-1.8c-2.8.6-3.4-1.2-3.4-1.2-.5-1.1-1.1-1.4-1.1-1.4-.9-.6.1-.6.1-.6 1 .1 1.5 1 1.5 1 .9 1.5 2.4 1.1 3 .8.1-.7.4-1.1.6-1.3-2.2-.3-4.6-1.1-4.6-5a3.9 3.9 0 0 1 1-2.7c-.1-.3-.4-1.3.1-2.7 0 0 .8-.3 2.8 1a9.5 9.5 0 0 1 5 0c2-1.3 2.8-1 2.8-1 .5 1.4.2 2.4.1 2.7a3.9 3.9 0 0 1 1 2.7c0 3.9-2.3 4.7-4.6 5 .4.3.7.9.7 1.9v2.8c0 .3.2.6.7.5A10.2 10.2 0 0 0 22 12.3C22 6.7 17.5 2.2 12 2.2z"/>
                 </svg>
               </span>
-              <a class="ltr" href="https://github.com/armin" target="_blank" rel="noopener noreferrer" dir="ltr">github.com/armin</a>
-            </li>
-            <li>
-              <span class="icon" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M6.2 9H3.4v12h2.8V9zM4.8 3.5A1.7 1.7 0 1 0 4.8 7a1.7 1.7 0 0 0 0-3.5zM20.6 9h-2.8v1.6h0c-.4-.8-1.5-1.8-3.2-1.8-3.4 0-4 2.4-4 5V21h2.8v-6.4c0-1.5 0-3.5 2.1-3.5s2.2 1.7 2.2 3.6V21h2.8V9z"/>
-                </svg>
-              </span>
-              <a class="ltr" href="https://linkedin.com/in/armin" target="_blank" rel="noopener noreferrer" dir="ltr">linkedin.com/in/armin</a>
+              <a class="ltr" href="https://github.com/<?= $data['personal_info']['contacts']['github'] ?>" target="_blank" rel="noopener noreferrer" dir="ltr">github.com/<?= $data['personal_info']['contacts']['github'] ?></a>
             </li>
           </ul>
         </section>
@@ -109,50 +117,23 @@
             <span class="lang-en">Skills</span>
           </h2>
           <div class="skills">
-            <div class="skill">
-              <h3>Backend</h3>
-              <ul class="chips">
-                <li>PHP</li>
-                <li>Laravel</li>
-                <li>REST API</li>
-                <li>Eloquent</li>
-              </ul>
-            </div>
-            <div class="skill">
-              <h3>
-                <span class="lang-fa">داده</span>
-                <span class="lang-en">Data</span>
-              </h3>
-              <ul class="chips">
-                <li>MySQL</li>
-                <li>PostgreSQL</li>
-                <li>Redis</li>
-              </ul>
-            </div>
-            <div class="skill">
-              <h3>
-                <span class="lang-fa">ابزار</span>
-                <span class="lang-en">Tools</span>
-              </h3>
-              <ul class="chips">
-                <li>Git</li>
-                <li>Docker</li>
-                <li>Linux</li>
-                <li>CI/CD</li>
-              </ul>
-            </div>
-            <div class="skill">
-              <h3>
-                <span class="lang-fa">کیفیت</span>
-                <span class="lang-en">Quality</span>
-              </h3>
-              <ul class="chips">
-                <li>PHPUnit</li>
-                <li>Pest</li>
-                <li>Code Review</li>
-              </ul>
-            </div>
-          </div>
+            <?php
+              foreach($data['skills'] as $skill)
+              {
+                echo '<div class="skill">';
+                echo '<h3>';
+                echo '<span class="lang-fa">' . $skill['title']['fa'] . '</span>';
+                echo '<span class="lang-en">' . $skill['title']['en'] . '</span>';
+                echo '</h3>';
+                echo '<ul class="chips">';
+                foreach($skill['items'] as $item)
+                {
+                  echo "<li>$item</li>";
+                }
+                echo '</ul>';
+                echo '</div>';
+              }
+            ?>
         </section>
 
         <section class="rail-block cv-only">
@@ -161,27 +142,21 @@
             <span class="lang-en">Certificates</span>
           </h2>
           <ul class="certs">
-            <li>
-              <strong>Laravel Certified Developer</strong>
-              <span>
-                <span class="lang-fa">۱۴۰۲</span>
-                <span class="lang-en">2023</span>
-              </span>
-            </li>
-            <li>
-              <strong>AWS Cloud Practitioner</strong>
-              <span>
-                <span class="lang-fa">۱۴۰۱</span>
-                <span class="lang-en">2022</span>
-              </span>
-            </li>
-            <li>
-              <strong>Docker Essentials</strong>
-              <span>
-                <span class="lang-fa">۱۴۰۰</span>
-                <span class="lang-en">2021</span>
-              </span>
-            </li>
+            <?php
+              foreach($data['certificates'] as $certificate)
+              {
+                echo '<li>';
+                echo '<strong>';
+                echo '<span class="lang-fa">' . $certificate['title']['fa'] . '</span>';
+                echo '<span class="lang-en">' . $certificate['title']['en'] .'</span>';
+                echo '</strong>';
+                echo '<span>';
+                echo '<span class="lang-fa">' . $certificate['year']['fa'] . '</span>';
+                echo '<span class="lang-en">' . $certificate['year']['en'] . '</span>';
+                echo '</span>';
+                echo '</li>';
+              }
+            ?>
           </ul>
         </section>
 
@@ -191,26 +166,21 @@
             <span class="lang-en">Awards</span>
           </h2>
           <ul class="certs">
-            <li>
-              <strong>
-                <span class="lang-fa">بهترین عملکرد فنی تیم</span>
-                <span class="lang-en">Best Technical Performance</span>
-              </strong>
-              <span>
-                <span class="lang-fa">۱۴۰۲</span>
-                <span class="lang-en">2023</span>
-              </span>
-            </li>
-            <li>
-              <strong>
-                <span class="lang-fa">رتبه برتر هکاتون داخلی</span>
-                <span class="lang-en">Internal Hackathon Winner</span>
-              </strong>
-              <span>
-                <span class="lang-fa">۱۴۰۰</span>
-                <span class="lang-en">2021</span>
-              </span>
-            </li>
+            <?php
+              foreach($data['awards'] as $awards)
+              {
+                echo '<li>';
+                echo '<strong>';
+                echo '<span class="lang-fa">' . $awards['title']['fa'] . '</span>';
+                echo '<span class="lang-en">' . $awards['title']['en'] .'</span>';
+                echo '</strong>';
+                echo '<span>';
+                echo '<span class="lang-fa">' . $awards['year']['fa'] . '</span>';
+                echo '<span class="lang-en">' . $awards['year']['en'] . '</span>';
+                echo '</span>';
+                echo '</li>';
+              }
+            ?>
           </ul>
         </section>
 
@@ -220,26 +190,21 @@
             <span class="lang-en">Languages</span>
           </h2>
           <ul class="langs">
-            <li>
-              <span>
-                <span class="lang-fa">فارسی</span>
-                <span class="lang-en">Persian</span>
-              </span>
-              <span>
-                <span class="lang-fa">بومی</span>
-                <span class="lang-en">Native</span>
-              </span>
-            </li>
-            <li>
-              <span>
-                <span class="lang-fa">انگلیسی</span>
-                <span class="lang-en">English</span>
-              </span>
-              <span>
-                <span class="lang-fa">حرفه‌ای کاری</span>
-                <span class="lang-en">Professional</span>
-              </span>
-            </li>
+            <?php
+            foreach($data['languages'] as $language)
+            {
+              echo '<li>';
+              echo '<span>';
+              echo '<span class="lang-fa">' . $language['title']['fa'] . '</span>';
+              echo '<span class="lang-en">' . $language['title']['en'] . '</span>';
+              echo '</span>';
+              echo '<span>';
+              echo '<span class="lang-fa">' . $language['seniority']['fa'] . '</span>';
+              echo '<span class="lang-en">' . $language['seniority']['en'] . '</span>';
+              echo '</span>';
+              echo '</li>';
+            }
+            ?>
           </ul>
         </section>
       </aside>
@@ -251,14 +216,8 @@
             <span class="lang-en">Professional Summary</span>
           </h2>
           <p class="summary">
-            <span class="lang-fa">
-              توسعه‌دهنده PHP با بیش از ۶ سال تجربه در سامانه‌های تحت وب و APIهای REST.
-              تمرکز روی Laravel، مدل‌سازی داده، پایداری سرویس و تحویل قابل اعتماد.
-            </span>
-            <span class="lang-en">
-              PHP developer with 6+ years of experience building web systems and REST APIs.
-              Focused on Laravel, data modeling, service reliability, and dependable delivery.
-            </span>
+            <span class="lang-fa"><?= $data['biography']['fa'] ?></span>
+            <span class="lang-en"><?= $data['biography']['en'] ?></span>
           </p>
         </section>
 
@@ -269,129 +228,52 @@
           </h2>
 
           <ol class="timeline">
-            <li class="timeline-item">
-              <div class="timeline-axis" aria-hidden="true"><span class="dot"></span></div>
-              <article class="job">
-                <div class="job-head">
-                  <div>
-                    <h3>
-                      <span class="lang-fa">توسعه‌دهنده ارشد Backend</span>
-                      <span class="lang-en">Senior Backend Developer</span>
-                    </h3>
-                    <p class="org">
-                      <span class="lang-fa">شرکت فناوری ابرنو · تهران</span>
-                      <span class="lang-en">Abarno Tech · Tehran</span>
-                    </p>
-                  </div>
-                  <time datetime="2022/2026">
-                    <span class="lang-fa">۱۴۰۱ — اکنون</span>
-                    <span class="lang-en">2022 — Present</span>
-                  </time>
-                </div>
-                <p class="desc">
-                  <span class="lang-fa">مسئول هسته بک‌اند محصولات SaaS؛ از طراحی API و مدل داده تا پایداری و امنیت.</span>
-                  <span class="lang-en">Owned SaaS backend core: API design, data models, reliability, and security.</span>
-                </p>
-                <ul>
-                  <li>
-                    <span class="lang-fa">طراحی و پیاده‌سازی APIهای REST برای وب و موبایل</span>
-                    <span class="lang-en">Designed and shipped REST APIs for web and mobile clients</span>
-                  </li>
-                  <li>
-                    <span class="lang-fa">بهینه‌سازی MySQL و کاهش زمان پاسخ سرویس‌های پرمصرف ≈ ۴۰٪</span>
-                    <span class="lang-en">Optimized MySQL and cut response time on heavy services by ~40%</span>
-                  </li>
-                  <li>
-                    <span class="lang-fa">صف‌ها و Jobهای Redis برای اعلان و گزارش‌گیری</span>
-                    <span class="lang-en">Built Redis queues/jobs for notifications and reporting</span>
-                  </li>
-                  <li>
-                    <span class="lang-fa">استانداردسازی کد، Code Review و استقرار با Docker / CI</span>
-                    <span class="lang-en">Improved standards, code review, and Docker/CI delivery</span>
-                  </li>
-                </ul>
-              </article>
-            </li>
+            <?php
+            foreach($data['careers'] as $career)
+            {
+              echo '<li class="timeline-item">';
+              echo '<div class="timeline-axis" aria-hidden="true"><span class="dot"></span></div>';
+              echo '<article class="job">';
 
-            <li class="timeline-item">
-              <div class="timeline-axis" aria-hidden="true"><span class="dot"></span></div>
-              <article class="job">
-                <div class="job-head">
-                  <div>
-                    <h3>
-                      <span class="lang-fa">توسعه‌دهنده PHP / Laravel</span>
-                      <span class="lang-en">PHP / Laravel Developer</span>
-                    </h3>
-                    <p class="org">
-                      <span class="lang-fa">استودیو نرم‌افزار پارس‌کد · تهران</span>
-                      <span class="lang-en">Parscode Studio · Tehran</span>
-                    </p>
-                  </div>
-                  <time datetime="2019/2022">
-                    <span class="lang-fa">۱۳۹۸ — ۱۴۰۰</span>
-                    <span class="lang-en">2019 — 2022</span>
-                  </time>
-                </div>
-                <p class="desc">
-                  <span class="lang-fa">توسعه سامانه‌های سفارشی کسب‌وکار؛ احراز هویت، دسترسی و یکپارچه‌سازی سرویس‌ها.</span>
-                  <span class="lang-en">Built custom business systems: auth, access control, and service integrations.</span>
-                </p>
-                <ul>
-                  <li>
-                    <span class="lang-fa">ماژول‌های محتوا، سفارش و گزارش با Laravel و Eloquent</span>
-                    <span class="lang-en">Delivered content, order, and reporting modules with Laravel/Eloquent</span>
-                  </li>
-                  <li>
-                    <span class="lang-fa">پیاده‌سازی نقش‌ها و کنترل دسترسی چندنقشی</span>
-                    <span class="lang-en">Implemented roles and multi-role access control</span>
-                  </li>
-                  <li>
-                    <span class="lang-fa">اتصال درگاه پرداخت و سرویس پیامکی</span>
-                    <span class="lang-en">Integrated payment gateways and SMS providers</span>
-                  </li>
-                  <li>
-                    <span class="lang-fa">تعریف قرارداد API شفاف برای تیم فرانت‌اند</span>
-                    <span class="lang-en">Defined clear API contracts for frontend teams</span>
-                  </li>
-                </ul>
-              </article>
-            </li>
+              #============JOB HEAD==========
+              echo '<div class="job-head">';
 
-            <li class="timeline-item">
-              <div class="timeline-axis" aria-hidden="true"><span class="dot"></span></div>
-              <article class="job">
-                <div class="job-head">
-                  <div>
-                    <h3>
-                      <span class="lang-fa">کارآموز توسعه وب</span>
-                      <span class="lang-en">Web Development Intern</span>
-                    </h3>
-                    <p class="org">
-                      <span class="lang-fa">شرکت نرم‌افزاری نوآوران · تهران</span>
-                      <span class="lang-en">Noavaran Software · Tehran</span>
-                    </p>
-                  </div>
-                  <time datetime="2018/2019">
-                    <span class="lang-fa">۱۳۹۷ — ۱۳۹۸</span>
-                    <span class="lang-en">2018 — 2019</span>
-                  </time>
-                </div>
-                <p class="desc">
-                  <span class="lang-fa">ورود عملی به چرخه محصول؛ نگهداری کد، Git، لینوکس و انتشار نسخه.</span>
-                  <span class="lang-en">Joined the product cycle: maintenance, Git, Linux, and releases.</span>
-                </p>
-                <ul>
-                  <li>
-                    <span class="lang-fa">توسعه و رفع باگ ماژول‌های PHP</span>
-                    <span class="lang-en">Developed and fixed PHP modules</span>
-                  </li>
-                  <li>
-                    <span class="lang-fa">تست پایه و مستندسازی تغییرات</span>
-                    <span class="lang-en">Wrote basic tests and documented changes</span>
-                  </li>
-                </ul>
-              </article>
-            </li>
+              echo '<div>';
+              echo '<h3>';
+              echo '<span class="lang-fa">' . $career['position']['fa'] . '</span>';
+              echo '<span class="lang-en">' . $career['position']['en'] .'</span>';
+              echo '</h3>';
+
+              echo '<p class="org">';
+              echo '<span class="lang-fa">' . $career['company']['fa'] . '</span>';
+              echo '<span class="lang-en">' . $career['company']['en'] . '</span>';
+              echo '</p>';
+
+              echo '<time datetime="' . $career['years']['start']['en'] . '/' . $career['years']['end']['en'] . '">';
+              echo '<span class="lang-fa">' . $career['years']['start']['fa'] . ' - ' . $career['years']['end']['fa'] . '</span>';
+              echo '<span class="lang-en">' . $career['years']['start']['en'] . ' - ' . $career['years']['end']['en'] . '</span>';
+              echo '</time>';
+              echo '</div>';
+
+              echo '</div>';
+              #============DESCRIPTION==========
+              echo '<p class="desc">';
+              echo '<span class="lang-fa">' . $career['brief']['fa'] . '</span>';
+              echo '<span class="lang-en">' . $career['brief']['en'] . '</span>';
+              echo '</p>';
+              #============ACHIVEMENTS==========
+              echo '<ul>';
+              foreach($career['achivements'] as $achivement)
+              {
+                echo '<li>';
+                echo '<span class="lang-fa">' . $achivement['fa'] . '</span>';
+                echo '<span class="lang-en">' . $achivement['en'] . '</span>';
+                echo '</li>';
+              }
+              echo '</ul>';
+              echo '</li>';
+            }
+            ?>
           </ol>
         </section>
 
@@ -401,53 +283,51 @@
             <span class="lang-en">Selected Projects</span>
           </h2>
           <div class="projects">
-            <article class="project">
-              <h3>
-                <span class="lang-fa">سامانه مدیریت سفارش چندمستأجری</span>
-                <span class="lang-en">Multi-tenant Order Platform</span>
-                <span class="tech ltr" dir="ltr">Laravel · MySQL · Redis</span>
-              </h3>
-              <p>
-                <span class="lang-fa">پلتفرم سفارش و موجودی برای چند کسب‌وکار؛ جداسازی داده مستأجرها، گزارش فروش و صف‌های پس‌زمینه.</span>
-                <span class="lang-en">Order and inventory platform for multiple businesses with tenant isolation, sales reports, and background jobs.</span>
-              </p>
-              <p class="project-links">
-                <a class="ltr" href="https://github.com/armin/order-platform" target="_blank" rel="noopener noreferrer" dir="ltr">GitHub</a>
-                <a class="ltr" href="https://demo.example.com/orders" target="_blank" rel="noopener noreferrer" dir="ltr">Demo</a>
-              </p>
-            </article>
+          <?php 
+          foreach($data['projects'] as $project)
+          {
+            echo '<article class="project">';
 
-            <article class="project">
-              <h3>
-                <span class="lang-fa">پنل رزرو آنلاین و نوبت‌دهی</span>
-                <span class="lang-en">Online Booking Panel</span>
-                <span class="tech ltr" dir="ltr">Laravel · Payment · SMS</span>
-              </h3>
-              <p>
-                <span class="lang-fa">نوبت‌دهی با ظرفیت، پرداخت آنلاین، یادآوری پیامکی و پنل مدیریت رزرو برای مراکز خدماتی.</span>
-                <span class="lang-en">Booking system with capacity, online payments, SMS reminders, and an admin panel for service centers.</span>
-              </p>
-              <p class="project-links">
-                <a class="ltr" href="https://github.com/armin/booking-panel" target="_blank" rel="noopener noreferrer" dir="ltr">GitHub</a>
-                <a class="ltr" href="https://demo.example.com/booking" target="_blank" rel="noopener noreferrer" dir="ltr">Demo</a>
-              </p>
-            </article>
+            echo '<h3>';
 
-            <article class="project">
-              <h3>
-                <span class="lang-fa">API احراز هویت و دسترسی</span>
-                <span class="lang-en">Auth & Access API</span>
-                <span class="tech ltr" dir="ltr">Sanctum · RBAC · PHPUnit</span>
-              </h3>
-              <p>
-                <span class="lang-fa">سرویس مرکزی ورود، توکن و نقش/مجوز برای چند محصول داخلی با تست خودکار و مستندسازی قرارداد API.</span>
-                <span class="lang-en">Central login, token, and role/permission service for internal products with automated tests and API docs.</span>
-              </p>
-              <p class="project-links">
-                <a class="ltr" href="https://github.com/armin/auth-service" target="_blank" rel="noopener noreferrer" dir="ltr">GitHub</a>
-                <a class="ltr" href="https://docs.example.com/auth" target="_blank" rel="noopener noreferrer" dir="ltr">Docs</a>
-              </p>
-            </article>
+            echo '<span class="lang-fa">' . $project['title']['fa'] . '</span>';
+            echo '<span class="lang-en">' . $project['title']['en'] . '</span>';
+
+            echo '<span class="tech ltr" dir="ltr">';
+
+            for($i = 0; $i < count($project['technologies']); $i++)
+            {
+              echo $project['technologies'][$i];
+
+              if($i != count($project['technologies']) - 1)
+              {
+                echo ' · ';
+              }
+            }
+
+            echo '</span>';
+
+            echo '</h3>';
+
+            echo '<p>';
+            echo '<span class="lang-fa">' . $project['brief']['fa'] . '</span>';
+            echo '<span class="lang-en">' . $project['brief']['en'] . '</span>';
+            echo '</p>';
+
+            echo '<p class="project-links">';
+
+            foreach($project['links'] as $link)
+            {
+              echo '<a class="ltr" href="' . $link['url'] . '" target="_blank" rel="noopener noreferrer" dir="ltr">';
+              echo $link['label'];
+              echo '</a>';
+            }
+
+            echo '</p>';
+
+            echo '</article>';
+          }
+          ?>
           </div>
         </section>
 
@@ -457,21 +337,40 @@
             <span class="lang-en">Open Source & Talks</span>
           </h2>
           <ul class="extra-list">
-            <li>
-              <strong class="ltr" dir="ltr">laravel-query-kit</strong>
-              —
-              <span class="lang-fa">ابزار کمکی بهینه‌سازی کوئری (GitHub)</span>
-              <span class="lang-en">Helper toolkit for query optimization (GitHub)</span>
-            </li>
-            <li>
-              <strong>
-                <span class="lang-fa">کارگاه API Design با Laravel</span>
-                <span class="lang-en">Laravel API Design Workshop</span>
-              </strong>
-              —
-              <span class="lang-fa">ارائه داخلی تیم · ۱۴۰۲</span>
-              <span class="lang-en">Internal team talk · 2023</span>
-            </li>
+            <?php
+              foreach($data['talks'] as $talk)
+              {
+                echo '<li>';
+
+                echo '<strong class="ltr" dir="ltr">';
+                echo $talk['title']['en'];
+                echo '</strong>';
+
+                echo ' — ';
+
+                echo '<span class="lang-fa">';
+                echo $talk['brief']['fa'];
+
+                if($talk['year']['fa'])
+                {
+                  echo ' · ' . $talk['year']['fa'];
+                }
+
+                echo '</span>';
+
+                echo '<span class="lang-en">';
+                echo $talk['brief']['en'];
+
+                if($talk['year']['en'])
+                {
+                  echo ' · ' . $talk['year']['en'];
+                }
+
+                echo '</span>';
+
+                echo '</li>';
+              }
+            ?>
           </ul>
         </section>
 
@@ -480,22 +379,40 @@
             <span class="lang-fa">تحصیلات</span>
             <span class="lang-en">Education</span>
           </h2>
-          <article class="edu">
-            <div>
-              <h3>
-                <span class="lang-fa">کارشناسی مهندسی نرم‌افزار</span>
-                <span class="lang-en">B.Sc. Software Engineering</span>
-              </h3>
-              <p>
-                <span class="lang-fa">دانشگاه علم و صنعت ایران</span>
-                <span class="lang-en">Iran University of Science and Technology</span>
-              </p>
-            </div>
-            <time datetime="2014/2018">
-              <span class="lang-fa">۱۳۹۳ — ۱۳۹۷</span>
-              <span class="lang-en">2014 — 2018</span>
-            </time>
-          </article>
+          <?php
+            foreach($data['educations'] as $education)
+            {
+              echo '<article class="edu">';
+
+              echo '<div>';
+
+              echo '<h3>';
+              echo '<span class="lang-fa">' . $education['field']['fa'] . '</span>';
+              echo '<span class="lang-en">' . $education['field']['en'] . '</span>';
+              echo '</h3>';
+
+              echo '<p>';
+              echo '<span class="lang-fa">' . $education['academy']['fa'] . '</span>';
+              echo '<span class="lang-en">' . $education['academy']['en'] . '</span>';
+              echo '</p>';
+
+              echo '</div>';
+
+              echo '<time datetime="' . $education['years']['start']['en'] . '/' . $education['years']['end']['en'] . '">';
+
+              echo '<span class="lang-fa">';
+              echo $education['years']['start']['fa'] . ' — ' . $education['years']['end']['fa'];
+              echo '</span>';
+
+              echo '<span class="lang-en">';
+              echo $education['years']['start']['en'] . ' — ' . $education['years']['end']['en'];
+              echo '</span>';
+
+              echo '</time>';
+
+              echo '</article>';
+            }
+          ?>
         </section>
       </main>
     </div>
