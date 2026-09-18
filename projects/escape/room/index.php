@@ -1,25 +1,17 @@
 <?php
 require '../includes/bootstrap.php';
 
-if($_SERVER['REQUEST_METHOD'] === 'POST')
+if(isPost() && isset($_POST['player_name']))
 {
-  if(isset($_POST['player_name']))
-  {
-    $_SESSION['player'] = $_POST['player_name'];
-  }
-  else
-  {
-    header('Location: http://localhost/escape');
-  }
+  startGame($_POST['player_name']);
 }
 else
 {
-  if(!isset($_SESSION['player']))
+  if(!isGameOngoing())
   {
-    header('Location: http://localhost/escape');
+    redirect('/');
   }
 }
-
 ?>
 
 <!doctype html>
@@ -55,17 +47,17 @@ else
         <div>
           <span>بازپرس</span>
           <!-- PHP: نام بازیکن اینجا -->
-          <strong><?= $_SESSION['player'] ?></strong>
+          <strong><?= playerName() ?></strong>
         </div>
         <div>
           <span>امتیاز پرونده</span>
           <!-- PHP: نمایش امتیاز اینجا -->
-          <strong>۰۲۰۰</strong>
+          <strong><?= score() ?></strong>
         </div>
         <div>
           <span>شانس باقی</span>
           <!-- PHP: تعداد تلاش باقی‌مانده اینجا -->
-          <strong class="attempts">● ● ●</strong>
+          <strong class="attempts"><?= attemptsLeft() ?></strong>
         </div>
       </aside>
     </section>
