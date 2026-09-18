@@ -36,6 +36,7 @@ else
   <header class="game-header">
     <a class="brand" href="index.html"><span>&lt;?php</span> اتاق فرار</a>
     <div class="room-state"><span class="status-dot"></span> صحنه تحت بررسی</div>
+    <a href="/escape/logout">خروج</a>
   </header>
 
   <main class="game-layout">
