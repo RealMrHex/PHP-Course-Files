@@ -1,0 +1,17 @@
+{
+    "name": "Armin",
+    "age": 25,
+    "loc": "Tehran",
+    "job": "Developer",
+    "careers": [
+        "x",
+        "y",
+        "z"
+    ],
+    "foo": {
+        "bar": [
+            {},
+            {}
+        ]
+    }
+}

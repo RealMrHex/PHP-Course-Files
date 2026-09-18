@@ -12,24 +12,24 @@ function logout()
 
 function startGame($playerName)
 {
-    $_SESSION['player'] = strip_tags($playerName);
+    $_SESSION['player'] = e($playerName);
     $_SESSION['attempts_left'] = 3;
     $_SESSION['score'] = 0;
 }
 
 function playerName()
 {
-    return $_SESSION['player'];
+    return $_SESSION['player'] ?? null;
 }
 
 function score()
 {
-    return $_SESSION['score'];
+    return $_SESSION['score'] ?? 0;
 }
 
 function attemptsLeft()
 {
-    return $_SESSION['attempts_left'];
+    return $_SESSION['attempts_left'] ?? 3;
 }
 
 function isPost()
@@ -40,4 +40,9 @@ function isPost()
 function isGameOngoing()
 {
     return isset($_SESSION['player']);
+}
+
+function e($needle)
+{
+    return htmlspecialchars($needle);
 }

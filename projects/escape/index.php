@@ -1,10 +1,7 @@
 <?php
 require './includes/bootstrap.php';
 
-if(isset($_SESSION['player']))
-{
-  header('Location: http://localhost/escape/room');
-}
+
 ?>
 
 <!doctype html>
@@ -46,13 +43,30 @@ if(isset($_SESSION['player']))
             autocomplete="nickname"
             required
             maxlength="30"
+            value="<?= playerName() ?>"
+            <?php if(isGameOngoing()) { ?> disabled <?php } ?>
           >
         </div>
+        <?php if(isGameOngoing()) { ?>
+        <a href="/escape/room" class="primary-button" type="submit">
+          <span>ورود به صحنه جرم</span>
+          <span aria-hidden="true">←</span>
+        </a>
+        <?php } else { ?>
         <button class="primary-button" type="submit">
           <span>ورود به صحنه جرم</span>
           <span aria-hidden="true">←</span>
         </button>
+        <?php }  ?>
       </form>
+
+      <?php if(isGameOngoing()) { ?>
+      <form method="POST" action="/escape/logout/index.php" style="margin-top:12px">
+        <button class="object-button" type="submit" style="border-top:0;justify-content:center;color:var(--muted);font-weight:600">
+          فراموشم کن
+        </button>
+      </form>
+      <?php } ?>
 
       <p class="hint-text">چهار سرنخ. سه شانس. یک متهم خاموش.</p>
     </section>
