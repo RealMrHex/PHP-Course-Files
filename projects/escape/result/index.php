@@ -1,3 +1,9 @@
+<?php
+require '../includes/bootstrap.php';
+
+$isFailed = isFailed();
+?>
+
 <!doctype html>
 <html lang="fa" dir="rtl">
 <head>
@@ -6,14 +12,19 @@
   <title>پرونده بسته شد | اتاق فرار PHP</title>
   <link rel="stylesheet" href="../assets/app.css">
 </head>
-<body class="success-page">
+<body class="<?= $isFailed ? 'failed-page' : 'success-page' ?>">
   <div class="ambient-grid" aria-hidden="true"></div>
-
   <main class="success-shell">
     <section class="success-card">
-      <div class="success-icon" aria-hidden="true">✓</div>
-      <p class="eyebrow">وضعیت: خروج تأیید شد</p>
-      <h1>از صحنه زنده بیرون آمدی<span>.</span></h1>
+      <div class="<?= $isFailed ? 'failed-icon' : 'success-icon' ?>" aria-hidden="true">
+        <?= $isFailed ? '☠️' : '🏃‍♂️' ?>
+      </div>
+      <p class="eyebrow">وضعیت:
+        <?= $isFailed ? 'خروج تایید نشد' : 'خروج تأیید شد' ?>
+      </p>
+      <h1>
+        <?= $isFailed ? 'نتونستی زنده بیرون بیای' : 'از صحنه زنده بیرون اومدی' ?>
+      </h1>
       <p class="success-copy">
         درِ فولادی با صدای خفه‌ای باز می‌شود. لامپ‌های راهرو یکی‌یکی روشن می‌شوند —
         انگار کسی از قبل مسیر فرارت را چیده بود.
@@ -23,51 +34,33 @@
       <div class="final-score">
         <span>امتیاز پرونده</span>
         <!-- PHP: امتیاز نهایی اینجا -->
-        <strong>۰۸۵۰</strong>
+        <strong><?= score() ?></strong>
         <!-- PHP: نام بازیکن اینجا -->
-        <small>بازپرس: سایه‌بان</small>
+        <small>بازپرس: <?= playerName() ?></small>
       </div>
 
       <div class="challenge-list">
         <h2>مدارک جمع‌آوری‌شده</h2>
-        <!-- PHP: حلقه روی چالش‌های تکمیل‌شده اینجا -->
         <ul>
+          <?php foreach(puzzles() as $puzzle)
+          {
+          ?>
+
           <li>
-            <span>✓</span>
+            <span><?= isPuzzleResolved($puzzle) ? '✓' : 'x' ?></span>
             <div>
-              <strong>نامِ کلیدِ دزدیده‌شده</strong>
-              <small>ترمینال قربانی — هویت متغیر بازیابی شد</small>
+              <strong><?= $puzzle['title'] ?></strong>
+              <small><?= $puzzle['location'] ?></small>
             </div>
           </li>
-          <li>
-            <span>✓</span>
-            <div>
-              <strong>فهرست شهود دفن‌شده</strong>
-              <small>قفسهٔ مدارک — ترتیب پنهان افشا شد</small>
-            </div>
-          </li>
-          <li>
-            <span>✓</span>
-            <div>
-              <strong>شرطِ قفل خونین</strong>
-              <small>کشو — حقیقت با مقایسه جور شد</small>
-            </div>
-          </li>
-          <li>
-            <span>✓</span>
-            <div>
-              <strong>جمعِ دو اعتراف</strong>
-              <small>درِ فولادی — کد نهایی پذیرفته شد</small>
-            </div>
-          </li>
+
+          <?php 
+          }
+          ?>
         </ul>
       </div>
 
-      <!--
-        دانشجوهای PHP:
-        بعداً می‌توانید با فرم POST سشن را ریست کنید.
-      -->
-      <form method="POST" action="index.html">
+      <form method="POST" action="/escape/logout/index.php">
         <input type="hidden" name="action" value="restart">
         <button class="primary-button" type="submit">
           <span>پروندهٔ تازه</span>

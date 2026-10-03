@@ -1,7 +1,7 @@
 {
-  "computer_01": {
+  "computer": {
     "object": "computer",
-    "number": "۰۱",
+    "number": "01",
     "location": "ترمینال قربانی",
     "title": "نامِ کلیدِ دزدیده‌شده",
     "difficulty": "طبقه‌بندی: محرمانه",
@@ -19,6 +19,7 @@
     "reward": 200,
     "clue_text": "لاگ آخر، قبل از قطع شدن، فقط یک اعتراف ناقص است:",
     "clue_code": "Notice: Undefined variable $key — they took the name of the key…",
+    "card_icon": "💻",
     "card_title": "ترمینال قربانی",
     "card_blurb": "صفحه هنوز روشنه؛ انگار صاحبش وسط فرار، چیزی را نیمه‌کاره جا گذاشته.",
     "action_label": "نفوذ به ترمینال",
@@ -26,9 +27,9 @@
     "success_summary": "ترمینال قربانی — هویت متغیر بازیابی شد",
     "is_finale": false
   },
-  "bookshelf_01": {
+  "bookshelf": {
     "object": "bookshelf",
-    "number": "۰۲",
+    "number": "02",
     "location": "قفسهٔ مدارک",
     "title": "فهرست شهود دفن‌شده",
     "difficulty": "طبقه‌بندی: محرمانه",
@@ -46,6 +47,7 @@
     "reward": 200,
     "clue_text": "بین صفحات، یادداشتی با جوهر قرمز: «فهرست شهود به ترتیب دفن شده… از صفر بشمار.»",
     "clue_code": "",
+    "card_icon": "📚",
     "card_title": "قفسهٔ مدارک",
     "card_blurb": "جلدها خاک‌خورده‌اند؛ یکی از کتاب‌ها کمی بیرون زده — مثل دندانی که کسی کشیده بیرون.",
     "action_label": "بازرسی قفسه",
@@ -53,9 +55,9 @@
     "success_summary": "قفسهٔ مدارک — ترتیب پنهان افشا شد",
     "is_finale": false
   },
-  "drawer_01": {
+  "drawer": {
     "object": "drawer",
-    "number": "۰۳",
+    "number": "03",
     "location": "کشو قفل‌شده",
     "title": "شرطِ قفل خونین",
     "difficulty": "طبقه‌بندی: محرمانه",
@@ -73,6 +75,7 @@
     "reward": 200,
     "clue_text": "روی فلز حک شده: «فقط اگر حقیقت برابر باشد، باز می‌شوم.» هیچ کلیدی این‌جا نیست — فقط یک شرط.",
     "clue_code": "",
+    "card_icon": "🗄️",
     "card_title": "کشو قفل‌شده",
     "card_blurb": "زیر میز؛ اثر انگشت روی دستگیره خشک شده. قفل دیجیتال هنوز نفس می‌کشد.",
     "action_label": "بررسی قفل",
@@ -80,9 +83,9 @@
     "success_summary": "کشو — حقیقت با مقایسه جور شد",
     "is_finale": false
   },
-  "door_01": {
+  "door": {
     "object": "door",
-    "number": "۰۴",
+    "number": "04",
     "location": "درِ فولادی خروج",
     "title": "جمعِ دو اعتراف",
     "difficulty": "طبقه‌بندی: فوق محرمانه",
@@ -100,6 +103,7 @@
     "reward": 250,
     "clue_text": "پنل قرمز چشمک می‌زند: «هویت ناقص است. هر چهار مدرک را بیاور — وگرنه متهم بعدی تویی.»",
     "clue_code": "",
+    "card_icon": "🚪",
     "card_title": "درِ فولادی خروج",
     "card_blurb": "آخرین مانع. پشتش صدای راهرو می‌آید… یا شاید فقط نویز سیستم باشد.",
     "action_label": "نزدیک شدن به در",

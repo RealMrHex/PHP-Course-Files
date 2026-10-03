@@ -1,7 +1,10 @@
 <?php
 require './includes/bootstrap.php';
 
-
+if(isGameOngoing())
+{
+  redirect('/room');
+}
 ?>
 
 <!doctype html>

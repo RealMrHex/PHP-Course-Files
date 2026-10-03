@@ -13,6 +13,40 @@ function loadPuzzlesJson()
 
 function puzzles()
 {
-    $puzzles = loadPuzzlesJson();
-    return $puzzles;
+    return loadPuzzlesJson();
+}
+
+function getPuzzleByObject($object)
+{
+    return puzzles()[$object];
+}
+
+function validatePuzzleAnswer($puzzle, $answer)
+{
+    if($puzzle['correct'] === $answer)
+    {
+        evaluateCorrectAnswer($puzzle);
+        return true;
+    }
+    else
+    {
+        evaluateWrongAnswer($puzzle);
+        return false;
+    }
+}
+
+function evaluateCorrectAnswer($puzzle)
+{
+    $_SESSION['resolved'][$puzzle['object']] = true;
+    reward($puzzle['reward']);
+}
+
+function evaluateWrongAnswer($puzzle)
+{
+    useAttempts();
+}
+
+function isPuzzleResolved($puzzle)
+{
+    return isset($_SESSION['resolved'][$puzzle['object']]);
 }
