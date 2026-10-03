@@ -12,6 +12,9 @@ else
     redirect('/');
   }
 }
+
+$puzzles = puzzles();
+
 ?>
 
 <!doctype html>
