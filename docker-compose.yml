@@ -5,3 +5,4 @@ services:
       - "80:80"
     volumes:
       - "./projects:/var/www/html"
+      - "./docker/apache/vhosts.conf:/etc/apache2/sites-enabled/vhosts.conf:ro"
