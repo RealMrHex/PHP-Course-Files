@@ -3,15 +3,92 @@
 require __DIR__ . '/bootstrap.php';
 
 $app = App::initialize();
-Request::handle();
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST')
-{
-    
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $action = $_POST['action'] ?? '';
+
+    if($action === 'logout')
+    {
+        App::logout();
+    }
+
+    $listId = (int) ($_POST['list_id'] ?? 0);
+
+    if ($action === 'create_list') {
+        $title = trim($_POST['title'] ?? '');
+
+        if ($title !== '') {
+            $listId = $_SESSION['app']['next_id'];
+            $_SESSION['app']['next_id']++;
+            $_SESSION['app']['lists'][] = [
+                'id' => $listId,
+                'title' => $title,
+                'tasks' => [],
+            ];
+        }
+    }
+
+    if ($action === 'create_task') {
+        $title = trim($_POST['title'] ?? '');
+        $type = $_POST['type'] ?? 'normal';
+        $due = $_POST['due_date'] ?? '';
+        $priority = $_POST['priority'] ?? 'Medium';
+
+        if ($title !== '' && ($type === 'normal' || $due !== '')) {
+            foreach ($_SESSION['app']['lists'] as $index => $list) {
+                if ($list['id'] !== $listId) {
+                    continue;
+                }
+
+                $task = [
+                    'id' => $_SESSION['app']['next_id'],
+                    'type' => $type,
+                    'title' => $title,
+                    'done' => false,
+                ];
+
+                if ($type !== 'normal') {
+                    $task['due'] = $due;
+                }
+
+                if ($type === 'priority') {
+                    $task['priority'] = $priority;
+                }
+
+                $_SESSION['app']['lists'][$index]['tasks'][] = $task;
+                $_SESSION['app']['next_id']++;
+            }
+        }
+    }
+
+    if ($action === 'toggle') {
+        $taskId = (int) ($_POST['task_id'] ?? 0);
+
+        foreach ($_SESSION['app']['lists'] as $listIndex => $list) {
+            if ($list['id'] !== $listId) {
+                continue;
+            }
+
+            foreach ($list['tasks'] as $taskIndex => $task) {
+                if ($task['id'] !== $taskId) {
+                    continue;
+                }
+
+                $_SESSION['app']['lists'][$listIndex]['tasks'][$taskIndex]['done'] = !$task['done'];
+            }
+        }
+    }
+
+    if ($listId === 0) {
+        $listId = $_SESSION['app']['lists'][0]['id'];
+    }
+
+    header('Location: index.php?list=' . $listId);
+    exit;
 }
 
 $requestedId = isset($_GET['list']) ? (int) $_GET['list'] : 0;
-$active = null;
+$active = ['id' => 0];
 
 // foreach ($_SESSION['app']['lists'] as $list) {
 //     if ($list['id'] === $requestedId) {
@@ -103,6 +180,69 @@ $priorityClass = [
           <button type="button" id="open-list" class="inline-flex items-center gap-1 rounded-2xl border-[3px] border-ink bg-mint px-4 py-2 text-lg font-extrabold text-white shadow-[3px_3px_0_#1c1c1c] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none">
             <span class="text-2xl leading-none" aria-hidden="true">+</span> List
           </button>
+        </div>
+      </div>
+
+      <div class="border-t-[3px] border-ink px-3 pb-5 pt-4 sm:px-6 sm:pb-6">
+        <div class="overflow-x-auto">
+          <table class="w-full min-w-[640px] border-collapse text-left">
+            <thead>
+              <tr class="border-b-[3px] border-ink">
+                <th class="w-[50%] px-3 pb-3 text-2xl font-black sm:text-3xl">Task</th>
+                <th class="w-[24%] px-3 pb-3 text-xl font-extrabold sm:text-2xl">Priority</th>
+                <th class="w-[26%] px-3 pb-3 text-xl font-extrabold sm:text-2xl">Due Date</th>
+              </tr>
+            </thead>
+            <tbody>
+              <?php if (count($active['tasks']) === 0) { ?>
+                <tr>
+                  <td colspan="3" class="px-3 py-10 text-center text-xl font-extrabold">This list is empty. Add a task.</td>
+                </tr>
+              <?php } ?>
+              <?php foreach ($active['tasks'] as $task) { ?>
+                <tr>
+                  <td class="px-3 py-4">
+                    <div class="flex items-center gap-3">
+                      <form method="post" action="index.php">
+                        <input type="hidden" name="action" value="toggle">
+                        <input type="hidden" name="list_id" value="<?= $active['id'] ?>">
+                        <input type="hidden" name="task_id" value="<?= $task['id'] ?>">
+                        <button type="submit" class="shrink-0" aria-label="Toggle <?= e($task['title']) ?>">
+                          <?php if ($task['done']) { ?>
+                            <span class="grid h-9 w-9 place-items-center rounded-full border-[3px] border-ink bg-leaf text-white shadow-[2px_2px_0_#1c1c1c]">
+                              <svg viewBox="0 0 24 24" class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5 9.2 17 19 7"></path></svg>
+                            </span>
+                          <?php } else { ?>
+                            <span class="block h-9 w-9 rounded-full border-[3px] border-ink bg-sky shadow-[2px_2px_0_#1c1c1c]"></span>
+                          <?php } ?>
+                        </button>
+                      </form>
+                      <span class="text-xl font-extrabold sm:text-2xl"><?= e($task['title']) ?></span>
+                    </div>
+                  </td>
+                  <td class="px-3 py-4">
+                    <?php if (!isset($task['priority'])) { ?>
+                      <span class="text-2xl font-black text-ink/25">—</span>
+                    <?php } else { ?>
+                      <span class="inline-flex min-w-[108px] items-center justify-center rounded-xl border-[3px] border-ink px-3 py-1.5 text-base font-extrabold shadow-[3px_3px_0_#1c1c1c] <?= $priorityClass[$task['priority']] ?>"><?= e($task['priority']) ?></span>
+                    <?php } ?>
+                  </td>
+                  <td class="px-3 py-4">
+                    <?php if (!isset($task['due'])) { ?>
+                      <span class="text-2xl font-black text-ink/25">—</span>
+                    <?php } else { ?>
+                      <div class="flex items-center gap-2.5 text-2xl font-bold">
+                        <span class="grid h-8 w-7 place-items-center" aria-hidden="true">
+                          <svg viewBox="0 0 28 30" class="h-7 w-6" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="3" y="5" width="22" height="21" rx="4"></rect><path d="M3 12h22"></path><path d="M9 3v5M19 3v5" stroke-linecap="round"></path></svg>
+                        </span>
+                        <span><?= e(date('M j', strtotime($task['due']))) ?></span>
+                      </div>
+                    <?php } ?>
+                  </td>
+                </tr>
+              <?php } ?>
+            </tbody>
+          </table>
         </div>
       </div>
     </section>
